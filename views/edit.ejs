@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit</title>
+</head>
+
+<body>
+    <%- include('partials/navbar')%>
+
+
+        <div>
+            <div>
+                <div>
+                    <h2>Upload a Cat</h2>
+                    <form action="/edit/<%=cat._id %>" method="POST">
+                        <div>
+                            <label for="name">Cat's Name</label>
+                            <input type="text" id="name" name="name" value="<%=cat.name%>" required>
+                        </div>
+                        <div>
+                            <label for="age">Age</label>
+                            <input type="number" id="age" name="age" value="<%=cat.age%>" required>
+                        </div>
+                        <div>
+                            <label for="favoriteFood">Favorite Food</label>
+                            <input type="text" id="favoriteFood" name="favoriteFood" value="<%=cat.favoriteFood%>"
+                                required>
+                        </div>
+                        <div>
+                            <label for="funFact">Fun fact</label>
+                            <input type="text" id="funFact" name="funFact" value="<%= cat.funFact%>" required>
+                        </div>
+                        <button type="submit">Submit</button>
+                </div>
+
+                </form>
+            </div>
+        </div>
+        </div>
+</body>
+
+</html>

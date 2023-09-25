@@ -1,0 +1,30 @@
+1.Setup
+
+script allows us to type in terminal to control start of app.
+ex: 
+"start": "node server.js"
+"dev": "nodemon server.js"
+
+steps:
+script
+gitignore- dont push node modules to git, nor connection string api keys .env, credentials.
+
+put all stuff that git ignore to env file and put in gitignore
+
+put database credentials in env file.
+-------------------------------------------------------------------
+2. Server 
+
+after set up create server with javascript- the control center the middleware, process request, handle everything to and from database.
+
+port for server to run on.
+
+middle ware processes requests for server in and out. Sometimes request require middle to help server process request.Such as unpacking.
+
+
+Server should be as tight and small as possible, Makes harder to troubleshoot.
+
+kiwi async - tells method to wait
+kiwi await - what is going to take time to complete
+
+mongoose helps talk to mongodb better as well as adding structure to the data we send.

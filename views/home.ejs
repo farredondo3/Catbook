@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Galllery</title>
+    <!--TODO ADD STYLESHEET-->
+</head>
+
+<body>
+
+    <%- include('partials/navbar')%>
+        <% cats.forEach(cat=> { %>
+            <div>
+                <div>
+                    <img src="/images/<%= cat.image %>" alt="cat image">
+                    <h5>
+                        <%= cat.name %>
+                    </h5>
+                    <p>
+                        Age:<%= cat.age %><br>
+                            Favorite food:
+                            <%= cat.favoriteFood %><br>
+                                Fun fact: <%= cat.funFact %>
+                    </p>
+                </div>
+                <div>
+                    <a href="/edit/<%= cat._id%>">Edit</a>
+                    <form action="/delete/<%= cat._id%>" method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
+            </div>
+            <% }); %>
+
+                </div>
+                </div>
+</body>
+
+</html>
