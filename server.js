@@ -9,6 +9,7 @@ const session = require('express-session')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const User = require('./models/userModel')
+const apiUrl = process.env.API_URL
 const PORT = process.env.PORT || 3500
 connectDB()
 
