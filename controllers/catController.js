@@ -16,15 +16,15 @@ const upload = multer({ storage: storage });
 
 const getAllCats = async (req, res) => {
     try {
-        const cats = await Cat.find()
-        res.render('home', { cats: cats })
+        const cats = await Cat.find().populate('owner')
+        res.render('home', { cats: cats, user: req.user })
     } catch (error) {
         console.log(error)
     }
 }
 
 const uploadPage = (req, res) => {
-    res.render('upload')
+    res.render('upload', { user: req.user })
 }
 
 const createCat = async (req, res) => {
@@ -35,7 +35,8 @@ const createCat = async (req, res) => {
             age: req.body.age,
             favoriteFood: req.body.favoriteFood,
             funFact: req.body.funFact,
-            image: req.file.filename
+            image: req.file.filename,
+            owner: req.user._id
         })
 
         await cat.save()
@@ -51,15 +52,20 @@ const createCat = async (req, res) => {
 const editPage = async (req, res) => {
     try {
         const cat = await Cat.findById(req.params.id)
-        res.render('edit', { cat: cat })
+        res.render('edit', { cat: cat, user: req.user })
     } catch (error) {
         console.log(error)
     }
 }
 
 const updateCat = async (req, res) => {
+    console.log(req.params.id)
+    console.log(req.body)
     try {
-        await Cat.findByIdAndUpdate(req.params.id, req.body)
+        let cat = await Cat.findById(req.params.id)
+        if (cat.owner.equals(req.user._id)) {
+            await Cat.findByIdAndUpdate(req.params.id, req.body)
+        }
         res.redirect('/')
     } catch (error) {
         console.log(error)
@@ -68,7 +74,11 @@ const updateCat = async (req, res) => {
 
 const deleteCat = async (req, res) => {
     try {
-        await Cat.findByIdAndRemove(req.params.id)
+        let cat = await Cat.findById(req.params.id)
+        if (cat.owner.equals(req.user._id)) {
+
+            await Cat.findByIdAndRemove(req.params.id)
+        }
         res.redirect('/')
     } catch (error) {
         console.log(error)
