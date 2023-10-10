@@ -6,6 +6,7 @@ const connectDB = require('./config/connectDB')
 const catRoutes = require('./routes/catRoutes')
 const userRoutes = require('./routes/userRoutes')
 const session = require('express-session')
+const MemoryStore = require('memorystore')(session)
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const User = require('./models/userModel')
@@ -21,6 +22,10 @@ app.use(express.static('public')) //tells server which files to serve to the bro
 app.set('view engine', 'ejs')
 
 app.use(session({
+    cookie: { maxAge: 86400000 },
+    store: new MemoryStore({
+        checkPeriod: 86400000 // prune expired entries every 24h
+    }),
     secret: 'this is Catnbook',
     resave: false,
     saveUninitialized: false
